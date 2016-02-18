@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Question, type: :model do
 
-  let(:question) { Question.create!(title: "New Question Title", body: "New Question Body")} #resolved: true)}
+  let(:question) { Question.create!(title: "New Question Title", body: "New Question Body", resolved: false)}
 
   describe "attributes" do
 
@@ -14,9 +14,9 @@ RSpec.describe Question, type: :model do
       expect(question).to respond_to(:body)
     end
 
-    #it "responds to boolean" do
-      #expect(question).to respond_to(:boolean)
-    #end
+    it "responds to boolean" do
+      expect(question).to respond_to(:resolved)
+    end
 
   end
 end
