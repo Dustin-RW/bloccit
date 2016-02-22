@@ -3,10 +3,7 @@ require 'random_data'
 
 RSpec.describe AdvertisementController, type: :controller do
 
-  let (:my_add) do
-    Advertisement.create(id: 1, title: RandomData.random_sentence,
-    copy: RandomData.random_paragraph, price: 99)
-  end
+  let (:my_add) { Advertisement.create!(id: 1, title: RandomData.random_sentence, copy: RandomData.random_paragraph, price: 99)}
 
 
   describe "GET #index" do
@@ -14,13 +11,13 @@ RSpec.describe AdvertisementController, type: :controller do
       get :index
       expect(response).to have_http_status(:success)
     end
-  end
 
-  it "assigns (my_ad) to @advertisements" do
-    get :index
 
-    expect(assigns(:advertisement)).to eq([my_ad])
+    it "assigns (my_ad) to @advertisements" do
+      get :index
 
+      expect(assigns(:advertisements)).to eq([my_ad])
+    end
   end
 #  describe "GET #show" do
 #    it "returns http success" do

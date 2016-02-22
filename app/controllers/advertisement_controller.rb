@@ -1,4 +1,5 @@
 class AdvertisementController < ApplicationController
+
   def index
 
     @advertisements = Advertisement.all
