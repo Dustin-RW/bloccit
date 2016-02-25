@@ -1,7 +1,7 @@
 require 'rails_helper'
 require 'random_data'
 
-RSpec.describe AdvertisementController, type: :controller do
+RSpec.describe AdvertisementsController, type: :controller do
 
   let (:my_add) { Advertisement.create!( title: RandomData.random_sentence, copy: RandomData.random_paragraph, price: RandomData.random_number)}
 
@@ -16,7 +16,7 @@ RSpec.describe AdvertisementController, type: :controller do
     it "assigns [my_ad] to @advertisements" do
       get :index
 
-      expect(assigns(:advertisements)).to eq([my_add])
+      expect(assigns(:advertisement)).to eq([my_add])
     end
 
   end
