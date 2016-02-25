@@ -1,5 +1,10 @@
-<h1>Advertisement</h1>
+<h1>Selected Advertisement</h1>
+<h3>Title</h3>
+  <p><%= @advertisement.title %></p>
+<h4>Copy</h4>
+  <p><%= @advertisement.copy %></p>
+<p><strong>Price: </strong><%= @advertisement.price %></p>
 
-<p>Showing advertisements</p>
+<%= link_to "Back to Advertisements", advertisement_index_path %></br>
 
 <%= params %>
