@@ -3,7 +3,7 @@ require 'random_data'
 
 RSpec.describe AdvertisementController, type: :controller do
 
-  let (:my_add) { Advertisement.create!(id: 1, title: RandomData.random_sentence, copy: RandomData.random_paragraph, price: 99)}
+  let (:my_ad) { Advertisement.create!(id: 1, title: RandomData.random_sentence, copy: RandomData.random_paragraph, price: 99)}
 
 
   describe "GET #index" do
