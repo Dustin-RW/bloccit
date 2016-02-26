@@ -1,0 +1,13 @@
+<h1>Create New Advertisement</h1>
+<%= form_for @advertisement do |f| %>
+  <%= f.label :title %>
+  <%= f.text_field :title %></br>
+
+  <%= f.label :copy %>
+  <%= f.text_field :copy %></br>
+
+  <%= f.label :price %>
+  <%= f.text_field :price %></br>
+
+  <%= f.submit "Save", class: 'btn-success' %>
+<% end %>
