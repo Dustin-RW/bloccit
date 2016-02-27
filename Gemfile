@@ -12,11 +12,13 @@ end
 group :development do
    gem 'sqlite3'
    gem 'pry-rails'
+   gem 'shoulda'
 
  end
 
  group :development, :test do
      gem 'rspec-rails', '~> 3.0'
+     gem 'shoulda-matchers', require: false
  end
 
  # Use SCSS for stylesheets
