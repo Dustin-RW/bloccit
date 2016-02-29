@@ -29,4 +29,8 @@ module RandomData
 
   end
 
+  def self.random_number
+    rand(1..100)
+  end
+
 end
