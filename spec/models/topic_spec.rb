@@ -7,7 +7,7 @@ RSpec.describe Topic, type: :model do
 
   it { is_expected.to have_many(:posts) }
 
-  it { is_expected.to have_many(:sponsoredposts)}
+  it { is_expected.to have_many(:sponsored_posts)}
 
   describe "attributes" do
 

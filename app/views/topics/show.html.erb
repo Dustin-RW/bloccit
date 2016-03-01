@@ -20,11 +20,12 @@
       </div>
     </div>
     <% end %>
-    <% @topic.sponsoredposts.each do |s_post| %>
+    <h4>Sponsored Post</h4>
+    <% @topic.sponsored_posts.each do |s_post| %>
     <div class="media">
       <div class="media-body">
         <h4 class="media-heading">
-          <%= link_to s_post.title, topic_sponsoredpost_path(@topic, s_post) %>
+          <%= link_to s_post.title, topic_sponsored_post_path(@topic, s_post) %>
         </h4>
           <small>
             submitted <%= time_ago_in_words(s_post.created_at) %> ago <br>
