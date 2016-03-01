@@ -7,6 +7,8 @@ RSpec.describe Topic, type: :model do
 
   it { is_expected.to have_many(:posts) }
 
+  it { is_expected.to have_many(:sponsoredposts)}
+
   describe "attributes" do
 
     it "responds to name" do
