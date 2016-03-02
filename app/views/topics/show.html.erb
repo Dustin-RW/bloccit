@@ -28,8 +28,7 @@
           <%= link_to s_post.title, topic_sponsored_post_path(@topic, s_post) %>
         </h4>
           <small>
-            submitted <%= time_ago_in_words(s_post.created_at) %> ago <br>
-            <%= s_post.comments.count %> Comments
+            submitted <%= time_ago_in_words(s_post.created_at) %>
           </small>
       </div>
     </div>
