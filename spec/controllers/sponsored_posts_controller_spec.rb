@@ -50,11 +50,30 @@ RSpec.describe SponsoredPostsController, type: :controller do
       expect(assigns(:sponsored_post)).not_to be_nil
     end
 
-#  describe "GET #edit" do
-#    it "returns http success" do
-#      get :edit
-#      expect(response).to have_http_status(:success)
-#    end
-#  end
+#====================================================================
+
+  describe "GET #edit" do
+    it "returns http success" do
+      get :edit, topic_id: my_topic.id, id: my_sponsored_post.id
+
+      expect(response).to have_http_status(:success)
+    end
+
+    it "renders the #edit view" do
+      get :edit, topic_id: my_topic.id, id: my_sponsored_post.id
+
+      expect(response).to render_template :edit
+    end
+
+    it "assigns sponsored_post to be updated to @sponsored_post" do
+      get :edit, topic_id: my_topic.id, id: my_sponsored_post.id
+      sponsored_post_instance = assigns(:sponsored_post)
+
+      expect(sponsored_post_instance.id).to eq my_sponsored_post.id
+      expect(sponsored_post_instance.title).to eq my_sponsored_post.title
+      expect(sponsored_post_instance.body).to eq my_sponsored_post.body
+      expect(sponsored_post_instance.price).to eq my_sponsored_post.price
+    end
+  end
 
 end
