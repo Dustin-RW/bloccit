@@ -31,7 +31,7 @@ posts = Post.all
 25.times do
 
   SponsoredPost.create!(
-    #topic: topics.sample,
+    topic: topics.sample,
     title: RandomData.random_sentence,
     body: RandomData.random_paragraph,
     price: RandomData.random_number
