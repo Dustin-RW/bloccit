@@ -23,7 +23,7 @@
     <div class="col-md-4">
       <%= link_to "Create New Post", new_topic_post_path(@topic), class: 'btn btn-success' %>
     </div>
-    <h4>Sponsored Post</h4>
+    <h2 style="color: green">** Sponsored Post(s) **</h2>
     <% @topic.sponsored_posts.each do |s_post| %>
     <div class="media">
       <div class="media-body">

@@ -1,2 +1,39 @@
-<h1>SponsoredPosts#new</h1>
-<p>Find me in app/views/sponsored_posts/new.html.erb</p>
+<h1>Create a New Sponsored Post</h1>
+
+<div class="row">
+  <div class="col-md-4">
+    <p>Rules when creating a new Sponsored Post:</p>
+    <ul>
+      <li>
+        <strong>THERE ARE NO RULES!!!</strong>
+      </li>
+    </ul>
+  </div>
+  <div class="col-md-8">
+    <%= form_for new_topic_sponsored_post_path do |f| %>
+      <div class="form-group">
+
+        <%= f.label :title %>
+        <%= f.text_field :title, class: 'form-control', placeholder: "Enter post title" %>
+
+      </div>
+      <div class="form-group">
+
+        <%= f.label :body %>
+        <%= f.text_area :body, rows: 8, class: 'form-control', placeholder: "Enter post body" %>
+
+      </div>
+      <div class="form-group">
+
+        <%= f.label :price %>: $
+        <%= f.number_field :price, class: 'text_field', step: 'any' %>
+
+      </div>
+      <div class="form-group">
+
+        <%= f.submit "Save", class: 'btn btn-success' %>
+
+      </div>
+    <% end %>
+  </div>
+</div>
