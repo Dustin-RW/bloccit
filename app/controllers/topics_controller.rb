@@ -43,7 +43,7 @@ class TopicsController < ApplicationController
 
     if @topic.save
       flash[:notice] = "Topic was updated"
-      redirect_to @topic
+      redirect_to @topic, notice: "topic was edited successfully"
     else
       flash[:alert] = "Error saving topic. Please try again"
     end
