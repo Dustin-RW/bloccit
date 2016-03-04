@@ -5,19 +5,20 @@ RSpec.describe User, type: :model do
   let(:user) { User.create!(name: "Bloccit User", email: "user@bloccit.com", password: "password")}
 
   #Shoulda tests for name
-  it { is_expected.to validate_presence_of(:name)}
-  it { is_expected.to validate_length_of(:name).is_at_least(1)}
+  it { expect(user).to validate_presence_of(:name)}
+  it { expect(user).to validate_length_of(:name).is_at_least(1)}
+
 
   #Shoulda tests for email
-  it { is_expected.to validate_presence_of(:email)}
-  it { is_expected.to validate_uniqueness_of(:email)}
-  it { is_expected.to validate_length_of(:email).is_at_least(3)}
-  it { is_expected.to allow_value("user@bloccit").for(:email)}
+  it { expect(user).to validate_presence_of(:email)}
+  it { expect(user).to validate_uniqueness_of(:email)}
+  it { expect(user).to validate_length_of(:email).is_at_least(3)}
+  it { expect(user).to allow_value("user@bloccit").for(:email)}
 
   #Shoulda tests for password
-  it { is_expected.to validate_presence_of(:password)}
-  it { is_expected.to have_secure_password}
-  it { is_expected.to validate_length_of(:password).is_at_least(6)}
+#  it { expect(user).to validate_presence_of(:password)}
+#  it { expect(user).to have_secure_password}
+#  it { expect(user).to validate_length_of(:password).is_at_least(6)}
 #=========================================================================
   describe "attributes" do
 
@@ -27,6 +28,13 @@ RSpec.describe User, type: :model do
 
     it "should respond to email" do
       expect(user).to respond_to(:email)
+    end
+
+    it "should capitalize the first and last name" do
+      user.name = "john doe"
+      user.save
+
+      expect(user.name).to eq("John Doe")
     end
 
   end
@@ -45,6 +53,25 @@ RSpec.describe User, type: :model do
     end
 
   end
+#=========================================================================
 
+#  describe "creating a user" do
 
+#    let(:lowercase_name_user) {User.new(name: "john doe", email: "user@bloccit.com", password: "password")}
+
+#    it "capitalizes the first and last name" do
+#      lowercase_name_user.name = capitalize_first_last(lowercase_name_user.name)
+
+#      expect(lowercase_name_user.name).to eq("John Doe")
+      #expect(lowercase_name_user.name).to be_valid
+#    end
+
+#  end
+
+#=========================================================================
+
+#Methods
+  def capitalize_first_last(name)
+    name = name.split.map!{ |cap| cap.capitalize }.join(" ")
+  end
 end
