@@ -1,5 +1,9 @@
 class UsersController < ApplicationController
 
+  def confirm
+    @user = User.find(params[:id])
+  end
+
   def new
     @user = User.new
   end
