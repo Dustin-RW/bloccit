@@ -1,0 +1,18 @@
+<h2>Sign Up Confirmation</h2>
+
+<p>
+  Are these values correct?
+</p>
+
+<div class="row">
+  <p>
+    <strong>Email: </strong><%= @user.email %>
+  </p>
+  <p>
+  <strong>Email: </strong><%= @user.name %>
+  </p>
+</div>
+<div class="row">
+  <%= button_to "Yes", {controller: "users", action: "create", params: params}, class: 'btn btn-success' %>
+  <%= button_to "No", new_user_path, class: 'btn btn-success' %>
+</div>
