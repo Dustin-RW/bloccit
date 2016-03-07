@@ -10,32 +10,24 @@ RSpec.describe UsersController, type: :controller do
   }
   end
 #========================================================
-  describe "Post confirm" do
+  #describe "Post confirm" do
 
-    it "returns http success" do
-      expect(response).to have_http_status(:success)
-    end
+    #it "returns http success" do
+      #expect(response).to have_http_status(:success)
+    #end
 
-    it "renders #show" do
-      get :confirm, user: new_user_attributes
+    #it "renders #confirm" do
+      #get :confirm, user: new_user_attributes
 
-      expect(response).to render_template :confirm
-    end
+      #expect(response).to render_template :confirm
+    #end
 
-    it "assigns new_user_attributes to @user" do
-      get :confirm, user: new_user_attributes
+    #it "assigns new_user_attributes to @user" do
+      #get :confirm, user: new_user_attributes
 
-      expect(assigns(:user)).to eq(new_user_attributes)
-    end
-
-
-
-
-
-
-
-
-  end
+      #expect(assigns(:user)).to eq(new_user_attributes)
+    #end
+  #end
 #========================================================
   describe "GET new" do
 
@@ -89,7 +81,11 @@ RSpec.describe UsersController, type: :controller do
       expect(assigns(:user).password_confirmation).to eq new_user_attributes[:password_confirmation]
     end
 
+    it "logs the user in after sign up" do
+      post :create, user: new_user_attributes
 
+      expect(session[:user_id]).to eq assigns(:user).id
+    end
 
   end
 
