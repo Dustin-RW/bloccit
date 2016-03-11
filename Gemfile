@@ -36,3 +36,5 @@ group :development do
  gem 'bootstrap-sass'
  # Used for encrypting User passwords
  gem 'bcrypt'
+
+ gem 'rails_db'
