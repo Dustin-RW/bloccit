@@ -1,6 +1,17 @@
 class PostsController < ApplicationController
 
+  #private methods found at bottom
+
+  #require_sign_in method found in application_controller.rb.  Method runs before any action
+  #within post controller except within and show
+  #before_action see(http://guides.rubyonrails.org/action_controller_overview.html)
   before_action :require_sign_in, except: :show
+
+  #check the role via enum (found in User model) before rendering any actions
+  #other then the show, new, and create action
+  before_action :authorize_user, except: [:show, :new, :create]
+
+
 
 #  def index
 
@@ -82,9 +93,21 @@ class PostsController < ApplicationController
 
   private
 
+
   def post_params
     params.require(:post).permit(:title, :body)
   end
 
+  #Here post runs within the 'before_action' regarding actions within
+  #Post controller (see above).  If post params via URL are not passed/equal to the current_user
+  #or admin within the specific post, user will be redirected to the post they just tried to edit.
+  #Otherwise, the user and/or the admin has the rights to edit/delete said post
+  def authorize_user
+    post = Post.find(params[:id])
 
+    unless current_user == post.user || current_user.admin?
+      flash[:alert] = "You must be an admin to do that"
+      redirect_to [post.topic, post]
+    end
+  end
 end
