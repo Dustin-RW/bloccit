@@ -77,7 +77,7 @@ class TopicsController < ApplicationController
   end
   #unless current user is an admin?, flash alert (see above: before_action)
   def authorize_user
-    unless current_user.admin?
+    unless current_user.moderator? || current_user.admin?
       flash[:alert] = "You must be an admin to do that"
       redirect_to topics_path
     end
