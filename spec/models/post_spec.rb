@@ -8,8 +8,13 @@ RSpec.describe Post, type: :model do
   let(:user)  { User.create!(name: "Bloccit", email: "user@bloccit.com", password: "helloworld")}
   let(:post) { topic.posts.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, user: user)}
 
+  #gem 'shoulda'
+  #it is expected that posts belong to a topic and a user
   it { is_expected.to belong_to(:topic) }
   it { is_expected.to belong_to(:user) }
+
+  #it is expected a Post has many comments
+  it { is_expected.to have_many(:comments)}
 
   it { is_expected.to validate_presence_of(:title)}
   it { is_expected.to validate_presence_of(:body)}
