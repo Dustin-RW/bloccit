@@ -41,7 +41,7 @@ class PostsController < ApplicationController
     @post.user = current_user
 
     if @post.save
-
+      @post.labels = Label.update_labels(params[:post][:labels])
       flash[:notice] = "Post was saved"
 #      redirect_to @post
       redirect_to [@topic, @post]
@@ -66,8 +66,8 @@ class PostsController < ApplicationController
     @post.assign_attributes(post_params)
 
     if @post.save
+      @post.labels = Label.update_labels(params[:post][:labels])
       flash[:notice] = "Post was updated."
-#      redirect_to @post
       redirect_to [@post.topic, @post]
     else
       flash.now[:alert] = "There was an error saving the post. Please try again"
