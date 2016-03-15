@@ -5,4 +5,8 @@ class Topic < ActiveRecord::Base
   #define a has many relationship between Topic and a label using the Label class through the
   #labelable interface
   has_many :labels, through: :labelings
+
+  has_many :comments
+
+  
 end

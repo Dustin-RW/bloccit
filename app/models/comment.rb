@@ -1,6 +1,7 @@
 class Comment < ActiveRecord::Base
   belongs_to :post
   belongs_to :user
+  belongs_to :topic
 
   #validates body hash.  Must have a minimum of 5 characters, and that a body is present
   validates :body, length: { minimum: 5 }, presence: true

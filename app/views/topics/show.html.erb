@@ -11,6 +11,7 @@
         <%= render partial: "labels/list", locals: { labels: @topic.labels } %>
         <br />
         <%= @topic.description %>
+        <%= render @topic.comments %>
       </p>
         <%= render @topic.posts %>
     </div>
