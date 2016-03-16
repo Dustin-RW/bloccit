@@ -13,7 +13,7 @@
         <%= @topic.description %>
         Topic Comments:
         <% @topic.comments.each do |comment| %>
-          <%= comment.body %>
+          <%= link_to comment.body %>
         <% end %>
       </p>
         <%= render @topic.posts %>
