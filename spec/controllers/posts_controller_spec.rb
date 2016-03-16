@@ -5,10 +5,10 @@ include SessionsHelper
 
 RSpec.describe PostsController, type: :controller do
 
-  let(:my_topic) { Topic.create!(name: RandomData.random_sentence, description: RandomData.random_paragraph)}
-  let(:my_user) { User.create!(name: "Bloccit User", email: "user@bloccit.com", password: "helloworld")}
-  let(:post_moderator) { User.create!(name: "Moderator user", email: "moderator@bloc.io", password: "helloworld", role: :moderator)}
-  let(:my_post) { my_topic.posts.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, user: my_user)}
+  let(:my_topic) { Topic.create!(name: RandomData.random_sentence, description: RandomData.random_paragraph) }
+  let(:my_user) { User.create!(name: "Bloccit User", email: "user@bloccit.com", password: "helloworld") }
+  let(:post_moderator) { User.create!(name: "Moderator user", email: "moderator@bloc.io", password: "helloworld", role: :moderator) }
+  let(:my_post) { my_topic.posts.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, user: my_user) }
 
 
   #let (:my_post) { Post.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph) }
@@ -190,6 +190,7 @@ RSpec.describe PostsController, type: :controller do
       it "updates post with expected attributes" do
         new_title = RandomData.random_sentence
         new_body = RandomData.random_paragraph
+        my_post.user = my_user
 
         put :update, topic_id: my_topic.id, id: my_post.id, post: {title: new_title, body: new_body}
 

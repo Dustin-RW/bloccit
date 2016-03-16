@@ -11,10 +11,6 @@ class PostsController < ApplicationController
   #other then the show, new, and create action
   before_action :authorize_user, except: [:show, :new, :create]
 
-  #before_action :authorize_moderator, except: [:show]
-
-
-
 #  def index
 
 #    @post = Post.all
@@ -62,7 +58,6 @@ class PostsController < ApplicationController
 #========================================
 
   def update
-
     @post = Post.find(params[:id])
     @post.assign_attributes(post_params)
 
@@ -103,15 +98,20 @@ class PostsController < ApplicationController
   #or admin within the specific post, user will be redirected to the post they just tried to edit.
   #Otherwise, the user and/or the admin has the rights to edit/delete said post
   def authorize_user
+    action = params['action']
     post = Post.find(params[:id])
 
-    if current_user.moderator?
-      return current_user.moderator!
-    else
-      unless current_user == post.user || current_user.admin?
-        flash[:alert] = "You must be an admin to do that"
-        redirect_to [post.topic, post]
-      end
+    # A post owner should be able to do everything.
+    return true if post.user == current_user
+
+    # Only admins may destroy a post.
+    if action == 'destroy' && !current_user.admin?
+      flash[:alert] = "You must be an admin to do that"
+      redirect_to [post.topic, post]
+    # Only admins and moderators may update a post.
+    elsif action == 'update' && !(current_user.moderator? || current_user.admin?)
+      flash[:alert] = "You must be an admin or a moderator to do that"
+      redirect_to [post.topic, post]
     end
   end
 
