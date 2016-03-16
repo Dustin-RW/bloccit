@@ -189,7 +189,7 @@ RSpec.describe TopicsController, type: :controller do
     describe "GET new" do
       it "returns http redirect" do
         get :new
-        expect(response).to redirect_to topics_path
+        expect(response).to redirect_to(topics_path)
       end
     end
 

@@ -104,21 +104,18 @@ RSpec.describe PostsController, type: :controller do
 
     describe "GET #show" do
       it "returns http success" do
-  #      get :show, {id: my_post.id}
         get :show, topic_id: my_topic.id, id: my_post.id
 
         expect(response).to have_http_status(:success)
       end
 
       it "renders the #show view" do
-  #      get :show, {id: my_post.id}
         get :show, topic_id: my_topic.id, id: my_post.id
 
         expect(response).to render_template :show
       end
 
       it "assign my_post to @post" do
-  #      get :show, {id: my_post.id}
         get :show, topic_id: my_topic.id, id: my_post.id
 
         expect(assigns(:post)).to eq(my_post)
@@ -167,21 +164,18 @@ RSpec.describe PostsController, type: :controller do
   #=====================================================
     describe "GET #edit" do
       it "returns http success" do
-  #      get :edit, {id: my_post.id}
         get :edit, topic_id: my_topic.id, id: my_post.id
 
         expect(response).to have_http_status(:success)
       end
 
       it "renders the #edit view" do
-  #      get :edit, {id: my_post.id}
         get :edit, topic_id: my_topic.id, id: my_post.id
 
         expect(response).to render_template :edit
       end
 
       it "assigns post to be updated to @post" do
-  #      get :edit, {id: my_post.id}
         get :edit, topic_id: my_topic.id, id: my_post.id
         post_instance = assigns(:post)
 

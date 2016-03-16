@@ -11,7 +11,7 @@ class PostsController < ApplicationController
   #other then the show, new, and create action
   before_action :authorize_user, except: [:show, :new, :create]
 
-  before_action :authorize_moderator, except: :show
+  #before_action :authorize_moderator, except: [:show]
 
 
 
@@ -45,7 +45,6 @@ class PostsController < ApplicationController
     if @post.save
 
       flash[:notice] = "Post was saved"
-#      redirect_to @post
       redirect_to [@topic, @post]
     else
 
@@ -69,7 +68,6 @@ class PostsController < ApplicationController
 
     if @post.save
       flash[:notice] = "Post was updated."
-#      redirect_to @post
       redirect_to [@post.topic, @post]
     else
       flash.now[:alert] = "There was an error saving the post. Please try again"
@@ -107,16 +105,22 @@ class PostsController < ApplicationController
   def authorize_user
     post = Post.find(params[:id])
 
-    unless current_user == post.user || current_user.admin?
-      flash[:alert] = "You must be an admin to do that"
-      redirect_to [post.topic, post]
+    if current_user.moderator?
+      return current_user.moderator!
+    else
+      unless current_user == post.user || current_user.admin?
+        flash[:alert] = "You must be an admin to do that"
+        redirect_to [post.topic, post]
+      end
     end
   end
 
-  def authorize_moderator
-    unless current_user.moderator?
-      flash[:alert] = "You must be an admin to do that"
-      redirect_to [post.topic, post]
-    end
-  end
+  #def authorize_moderator
+    #post = Post.find(params[:id])
+
+    #unless current_user.moderator?
+      #flash[:alert] = "You must be or admin to do that"
+      #redirect_to [post.topic, post]
+    #end
+  #end
 end
