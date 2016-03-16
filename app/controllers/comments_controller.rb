@@ -7,16 +7,21 @@ class CommentsController < ApplicationController
   before_action :authorize_user, only: [:destroy]
 
   def create
+    @topic = Topic.find(params[:topic_id])
+    topic_comment = @topic.comment.new(comment_params)
     #find the correct post using the :post_id from params
     @post = Post.find(params[:post_id])
     #create a new comment using comment_params
-    comment = @post.comments.new(comment_params)
+    post_comment = @post.comments.new(comment_params)
     #assign the comments user to current_user which returns the signedin user instance
     comment.user = current_user
 
-    if comment.save
+    if post_comment.save
       flash[:notice] = "Comment saved successfully"
       redirect_to [@post.topic, @post]
+    elsif topic_comment.save
+      flash[:notice] = "Comment saved successfully"
+      redirect_to @topic
     else
       flash[:alert] = "Comment failed to save"
       redirect_to [@post.topic, @post]
@@ -26,16 +31,23 @@ class CommentsController < ApplicationController
 
   def destroy
 
-    @post = Post.find(params[:post_id])
-    comment = @post.comments.find(params[:id])
+    @topic = Topic.find(params[:topic_id])
+    topic_comment = @topic.comments.find(params[:id])
 
-    if comment.destroy
+    @post = Post.find(params[:post_id])
+    post_comment = @post.comments.find(params[:id])
+
+    if post_comment.destroy
       flash[:notice] = "Comment was deleted"
       redirect_to [@post.topic, @post]
+    elsif topic_comment.destroy
+      flash[:notice] = "Comment was deleted"
+      redirect_to @topic
     else
       flash[:alert] = "Comment counld't be deleted. Try again"
       redirect_to [@post.topic, @post]
     end
+
   end
 
   private

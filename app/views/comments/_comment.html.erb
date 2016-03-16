@@ -5,9 +5,6 @@
       <% if user_is_authorized_for_comment_via_post?(comment) %>
       | <%= link_to "Delete", [@post, comment], method: :delete %>
       <% end %>
-      <% if user_is_authorized_for_comment_via_topic?(comment) %>
-      | <%= link_to "Delete", [@topic, comment], method: :delete %>
-      <% end %>
     </small>
     <p>
       <%= comment.body %>
