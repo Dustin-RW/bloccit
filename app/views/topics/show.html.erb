@@ -11,9 +11,11 @@
         <%= render partial: "labels/list", locals: { labels: @topic.labels } %>
         <br />
         <%= @topic.description %>
-        Topic Comments:
-        <% @topic.comments.each do |comment| %>
-          <%= link_to comment.body %>
+        <div>
+        <strong>Topic Comments:</strong>
+        </div>
+        <% @topic.comments.each do |comment| %><br />
+          <%= link_to comment.body, [@topic.comment, comment] %><br />
         <% end %>
       </p>
         <%= render @topic.posts %>
