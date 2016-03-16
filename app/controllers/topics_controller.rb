@@ -18,10 +18,15 @@ class TopicsController < ApplicationController
   end
 #====================================================================
   def new
+    return_to_index_if_moderator
     @topic = Topic.new
   end
 #====================================================================
   def create
+    if current_user.moderator?
+      redirect_to(topics_path)
+      return
+    end
 
     @topic = Topic.new(topic_params)
 
@@ -77,16 +82,18 @@ class TopicsController < ApplicationController
   end
   #unless current user is an admin?, flash alert (see above: before_action)
   def authorize_user
-    if current_user.moderator?
-      return current_user.moderator!
-    else
-      unless current_user.admin?
-        flash[:alert] = "You must be an admin to do that"
-        redirect_to topics_path
-      end
+    unless current_user.moderator? || current_user.admin?
+      flash[:alert] = "You must be an admin to do that"
+      redirect_to topics_path
     end
   end
 
+  def return_to_index_if_moderator
+      unless current_user.admin?
+        flash[:alert] = "You must be an admin to do that"
+        redirect_to topics_path
+    end
+  end
 
 
 end
