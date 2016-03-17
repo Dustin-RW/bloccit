@@ -6,7 +6,7 @@ class Topic < ActiveRecord::Base
   #labelable interface
   has_many :labels, through: :labelings
 
-  has_many :comments
+  has_many :comments, as: :commentable, dependent: :destroy
 
-  
+
 end

@@ -2,13 +2,12 @@ class CreateComments < ActiveRecord::Migration
   def change
     create_table :comments do |t|
       t.text :body
-      #t.string :post
-      #t.string :references
-
-      t.references :post, index: true, foreign_key: true
-      t.references :topic, index: true, foreign_key: true
+      #automatically creates commentable_id:integer and commentable_type:string
+      t.belongs_to :commentable, polymorphic: true
 
       t.timestamps null: false
     end
+    #associates both commetables to comments
+    add_index :comments, [:commentable_id, :commentable_type]
   end
 end
