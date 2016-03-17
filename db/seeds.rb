@@ -62,6 +62,7 @@ posts = Post.all
 
   Comment.create!(
     user: users.sample,
+    topic: topics.sample,
     post: posts.sample,
     body: RandomData.random_paragraph
     )
