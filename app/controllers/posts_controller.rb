@@ -11,14 +11,10 @@ class PostsController < ApplicationController
   #other then the show, new, and create action
   before_action :authorize_user, except: [:show, :new, :create]
 
-  #before_action :authorize_moderator, except: [:show]
 
 
 
 #  def index
-
-#    @post = Post.all
-
 #  end
 #========================================
   def show
@@ -102,20 +98,27 @@ class PostsController < ApplicationController
   #or admin within the specific post, user will be redirected to the post they just tried to edit.
   #Otherwise, the user and/or the admin has the rights to edit/delete said post
   def authorize_user
-    puts params['action']
+
+    #stores action past, gathered by params, and stores action into action variable
     action = params['action']
 
+    #passes current post, via params, inside variable post
     post = Post.find(params[:id])
 
-    p "current_user:", current_user
-
+    #if the post.user id is the same as the current user id, pass all actions as true and
+    #exit out.  Machine here thinks (if not the same user id), "I am a different id.
+    #and am exiting loop and headed to the next bit of information"
     if post.user == current_user
       return true
     end
 
+    #The user was not the current user (see above), so what user are you?
+    #If the destroy action is generated, the post.user id will need to match a
+    #moderator user id of 2 or an admin id of 1, else redirect back to post with directed error
     if action == 'destroy' && (post.user == !current_user || !current_user.admin?)
       flash[:alert] = "You must be an admin to do that"
       redirect_to [post.topic, post]
+    #same idea as destroy (above), except for the 'update' action
     elsif action == 'update' && !(current_user.moderator? || current_user.admin?)
       flash[:alert] = "You must be an admin or a moderator to do that"
       redirect_to [post.topic, post]
@@ -123,13 +126,4 @@ class PostsController < ApplicationController
 
 
   end
-
-  #def authorize_moderator
-    #post = Post.find(params[:id])
-
-    #unless current_user.moderator?
-      #flash[:alert] = "You must be or admin to do that"
-      #redirect_to [post.topic, post]
-    #end
-  #end
 end
