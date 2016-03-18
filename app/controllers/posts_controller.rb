@@ -83,7 +83,6 @@ class PostsController < ApplicationController
 
     if @post.destroy
       flash[:notice] = "\"#{@post.title}\" was deleted successfully"
-#      redirect_to posts_path
       redirect_to @post.topic
     else
       flash.now[:alert] = "There was an error deleting the post."
@@ -103,16 +102,16 @@ class PostsController < ApplicationController
   #or admin within the specific post, user will be redirected to the post they just tried to edit.
   #Otherwise, the user and/or the admin has the rights to edit/delete said post
   def authorize_user
+    action = params['action']
     post = Post.find(params[:id])
 
-    if current_user.moderator?
-      return current_user.moderator!
-    else
-      unless current_user == post.user || current_user.admin?
-        flash[:alert] = "You must be an admin to do that"
-        redirect_to [post.topic, post]
-      end
+
+    if post.user == current_user || current_user.admin?
+      return true
+    else post.user == current_user.moderator?
+      return [:edit, :update]
     end
+
   end
 
   #def authorize_moderator
