@@ -103,7 +103,7 @@ class PostsController < ApplicationController
     #stores action past, gathered by params, and stores action into action variable
     action = params['action']
 
-    #passes current post, via params, inside variable post
+    #passes current post and all of its keys and values, via params, inside variable post
     post = Post.find(params[:id])
 
     #if the post.user id is the same as the current user id, pass all actions as true and
