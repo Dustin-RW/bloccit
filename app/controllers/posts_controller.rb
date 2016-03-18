@@ -106,7 +106,7 @@ class PostsController < ApplicationController
     #passes current post and all of its keys and values, via params, inside variable post
     post = Post.find(params[:id])
 
-    #if the post.user id is the same as the current user id, pass all actions as true and
+    #if the post.user id is the same as the current user id, then pass all actions as true and
     #exit out.  Machine here thinks (if not the same user id), "I am a different id.
     #and am exiting loop and headed to the next bit of information"
     if post.user == current_user
