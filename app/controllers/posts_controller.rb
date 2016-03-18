@@ -102,15 +102,25 @@ class PostsController < ApplicationController
   #or admin within the specific post, user will be redirected to the post they just tried to edit.
   #Otherwise, the user and/or the admin has the rights to edit/delete said post
   def authorize_user
+    puts params['action']
     action = params['action']
+
     post = Post.find(params[:id])
 
+    p "current_user:", current_user
 
-    if post.user == current_user || current_user.admin?
+    if post.user == current_user
       return true
-    else post.user == current_user.moderator?
-      return [:edit, :update]
     end
+
+    if action == 'destroy' && (post.user == !current_user || !current_user.admin?)
+      flash[:alert] = "You must be an admin to do that"
+      redirect_to [post.topic, post]
+    elsif action == 'update' && !(current_user.moderator? || current_user.admin?)
+      flash[:alert] = "You must be an admin or a moderator to do that"
+      redirect_to [post.topic, post]
+    end
+
 
   end
 

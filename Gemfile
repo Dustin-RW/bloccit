@@ -12,6 +12,7 @@ end
 group :development do
    gem 'sqlite3'
    gem 'pry-rails'
+   gem 'quiet_assets'
    #gem 'shoulda'
 
  end
@@ -38,3 +39,5 @@ group :development do
  gem 'bcrypt'
 
  gem 'rails_db'
+
+ 
