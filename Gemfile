@@ -39,5 +39,3 @@ group :development do
  gem 'bcrypt'
 
  gem 'rails_db'
-
- 
