@@ -8,4 +8,8 @@ module TopicsHelper
     current_user && current_user.moderator?
   end
 
+  def not_signed_in?
+    current_user
+  end
+
 end
