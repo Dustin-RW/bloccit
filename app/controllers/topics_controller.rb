@@ -18,15 +18,10 @@ class TopicsController < ApplicationController
   end
 #====================================================================
   def new
-    return_to_index_if_moderator
     @topic = Topic.new
   end
 #====================================================================
   def create
-    if current_user.moderator?
-      redirect_to(topics_path)
-      return
-    end
 
     @topic = Topic.new(topic_params)
 
