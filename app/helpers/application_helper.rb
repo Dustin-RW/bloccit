@@ -1,5 +1,6 @@
 module ApplicationHelper
 
+  # helper method to display errors in app.  See post partial
   def form_group_tag(errors, &block)
     css_class = 'form-group'
     css_class << ' has-error' if errors.any?

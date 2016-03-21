@@ -20,10 +20,12 @@ RSpec.describe Post, type: :model do
   it { is_expected.to have_many(:labelings) }
   it { is_expected.to have_many(:labels).through(:labelings) }
 
+  # it is expected to have the presence of a title, body, and a topic.
   it { is_expected.to validate_presence_of(:title) }
   it { is_expected.to validate_presence_of(:body) }
   it { is_expected.to validate_presence_of(:topic) }
 
+  # it is expected to have a title with at least 5 characters and a body with at least 20
   it { is_expected.to validate_length_of(:title).is_at_least(5) }
   it { is_expected.to validate_length_of(:body).is_at_least(20) }
 

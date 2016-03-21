@@ -10,6 +10,10 @@
     </ul>
   </div>
   <div class="col-md-8">
+    <!--
+    partial: 'form' renders posts _form.html.erb.  Locals passes, as arguments,
+    the topic id of the given post and the post id into _form.html.erb
+    -->
     <%= render partial: 'form', locals: {topic: @post.topic, post: @post} %>
   </div>
 </div>

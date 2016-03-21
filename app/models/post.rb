@@ -16,8 +16,10 @@ class Post < ActiveRecord::Base
 
   default_scope {order('created_at DESC')}
 
+  # validate that the title, has a length of at least 5 characters and that it is present
   validates :title, length: {minimum: 5}, presence: true
   validates :body, length: {minimum: 20}, presence: true
+  # validates that post has a topic and a user
   validates :topic, presence: true
   validates :user, presence: true
 
