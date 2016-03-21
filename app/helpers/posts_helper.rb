@@ -5,7 +5,7 @@ module PostsHelper
   end
 
   def post_moderator?(post)
-    current_user.moderator?
+    current_user && (current_user == post.user || current_user.moderator?)
   end
 
 end
