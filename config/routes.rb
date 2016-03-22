@@ -19,6 +19,7 @@ Rails.application.routes.draw do
     resources :comments, only: [:create, :destroy]
   end
 
+  # The only hash key will prevent Rails from creating unnecessary routes
   resources :users, only: [:new, :create]
 
   resources :sessions, only: [:new, :create, :destroy]
