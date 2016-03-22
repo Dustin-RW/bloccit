@@ -1,12 +1,13 @@
 require 'rails_helper'
 require 'random_data'
 
-#Tests Post migration information within schema
+# Tests Post migration information within schema
 RSpec.describe Post, type: :model do
-
-  # using the let method, we create new instances of he topic, user, and post class
+  # using the let method, we create new instances of the topic, user, and post class
+  # we add topic and user because a post is suppose to belong to a topic and a user
   let(:topic) { Topic.create!(name: RandomData.random_sentence, description: RandomData.random_paragraph) }
   let(:user)  { User.create!(name: 'Bloccit', email: 'user@bloccit.com', password: 'helloworld') }
+  #                post should have:   post.title          &               post.body           &          post.user
   let(:post) { topic.posts.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, user: user) }
 
   # gem 'shoulda'

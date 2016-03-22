@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-
   def confirm
     @user = User.find(params[:id])
   end
@@ -9,6 +8,7 @@ class UsersController < ApplicationController
   end
 
   def create
+    # we create a new user with new and then set the corresponding attributes from the params hash
     @user = User.new
     @user.name = params[:user][:name]
     @user.email = params[:user][:email]
@@ -20,11 +20,8 @@ class UsersController < ApplicationController
       create_session(@user)
       redirect_to root_path
     else
-      flash[:alert] = "There was an error creating your account.  Please try again"
+      flash[:alert] = 'There was an error creating your account.  Please try again'
       render :new
     end
   end
-
-
-
 end

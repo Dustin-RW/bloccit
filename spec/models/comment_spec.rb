@@ -2,6 +2,8 @@ require 'rails_helper'
 require 'random_data'
 
 RSpec.describe Comment, type: :model do
+  # instance variables within spec because a comment belongs to a post, which belongs
+  # to a topic and a user
   let(:topic) { Topic.create!(name: RandomData.random_sentence, description: RandomData.random_paragraph) }
   let(:user)  { User.create!(name: 'Bloccit', email: 'user@bloccit.com', password: 'helloworld') }
   let(:post) { topic.posts.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, user: user) }
