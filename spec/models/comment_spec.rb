@@ -8,7 +8,7 @@ RSpec.describe Comment, type: :model do
   let(:user)  { User.create!(name: 'Bloccit', email: 'user@bloccit.com', password: 'helloworld') }
   let(:post) { topic.posts.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, user: user) }
 
-  #:comment is an instance of rspec Comment.  :comment is created with a body,
+  # :comment is an instance of rspec Comment.  :comment is created with a body,
   # the :post instance of Comment spec (see above) and the :user instance of Comment spec (see above)
   let(:comment) { Comment.create!(body: 'Comment Body', post: post, user: user) }
 
