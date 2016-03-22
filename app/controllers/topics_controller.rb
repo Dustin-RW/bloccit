@@ -2,11 +2,11 @@ class TopicsController < ApplicationController
   # see private methods at bottom
 
   # require_sign_in method found in application_controller.rb.  Method runs before any action
-  # within topics controller except within index and show
+  # within topics controller except within index and show ( ...unless current_user)
   # before_action see(http://guides.rubyonrails.org/action_controller_overview.html)
   before_action :require_sign_in, except: [:index, :show]
   # authorize_user method within Topic Controller (private).  Before any action, run authorize_user
-  # mtehod unless its topics index action or show action
+  # method unless its topics index action or show action
   before_action :authorize_user, except: [:index, :show]
 
   def index

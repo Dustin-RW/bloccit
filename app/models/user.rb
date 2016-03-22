@@ -9,6 +9,10 @@ class User < ActiveRecord::Base
 
   # before saving of a User, transform the provided email (self) into all downcase letters
   before_save { self.email = email.downcase }
+  
+  # have to add this to use enum role down below
+  # shorthand for { self.role = :member if self.role.nil? }
+  # basically stating if self.role is nil (empty), assign it as a member by default
   before_save { self.role ||= :member }
 
   # validates that user has a name (hence presence) with a min-max of 1-100 characters
@@ -29,5 +33,9 @@ class User < ActiveRecord::Base
   # (http://api.rubyonrails.org/classes/ActiveModel/SecurePassword/ClassMethods.html#method-i-has_secure_password)
   has_secure_password
 
+  # special attribute type whose values map to integers, but can be referenced by name
+  # creates a column in the User database name role, and allows us to assign
+  # and referencec roles using admin or member
+  # see (http://edgeapi.rubyonrails.org/classes/ActiveRecord/Enum.html)
   enum role: [:member, :admin, :moderator]
 end

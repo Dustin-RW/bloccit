@@ -51,12 +51,16 @@ RSpec.describe User, type: :model do
     end
   end
   #=========================================================================
+  # we want a User to respond to roles.  Roles will be created via an enum within
+  # the User Model
   describe 'roles' do
+    # we expect a User to have a role as a member by default
     it 'is member by default' do
       expect(user.role).to eql('member')
     end
 
     context 'member user' do
+      # if a member is signed in, we expect they are truthy, instead of falsey
       it 'returns true for #member' do
         expect(user.member?).to be_truthy
       end
@@ -67,10 +71,12 @@ RSpec.describe User, type: :model do
     end
 
     context 'admin user' do
+      # to meet the testing specs for an admin, we need to assign the instance
+      # user, within the test spec, to be an admin
       before do
         user.admin!
       end
-
+      # we test truthy and falsey for admin
       it 'returns false for #member' do
         expect(user.member?).to be_falsey
       end
@@ -80,7 +86,6 @@ RSpec.describe User, type: :model do
       end
     end
   end
-
 
   # tests that conduct the simulation of an invalid name
   describe 'invalid user' do
