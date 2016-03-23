@@ -1,21 +1,20 @@
 require 'rails_helper'
 
 RSpec.describe Label, type: :model do
-
   let(:topic) { Topic.create!(name: RandomData.random_sentence, description: RandomData.random_paragraph) }
-  let(:user) { User.create!(name: "Bloccit User", email: "user@bloccit.com", password: "helloworld") }
+  let(:user) { User.create!(name: 'Bloccit User', email: 'user@bloccit.com', password: 'helloworld') }
   let(:post) { topic.posts.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, user: user) }
   let(:label) { Label.create!(name: 'Label') }
-  let(:label2) { Label.create!(name: 'Label2')}
+  let(:label2) { Label.create!(name: 'Label2') }
 
-  #Shoulda gem, Label is expected to have many labelings.  labelings could be either topics or posts
-  it { is_expected.to have_many :labelings}
-  #Shoulda gem, a label should have many topics and posts through labelings
-  it { is_expected.to have_many(:topics).through(:labelings)}
-  it { is_expected.to have_many(:posts).through(:labelings)}
+  # Shoulda gem, Label is expected to have many labelings.  labelings could be either topics or posts
+  it { is_expected.to have_many :labelings }
+  # Shoulda gem, a label should have many topics and posts through labelings
+  it { is_expected.to have_many(:topics).through(:labelings) }
+  it { is_expected.to have_many(:posts).through(:labelings) }
 
-  describe "labelings" do
-    it "allows the same label to be associated with a different topic and post" do
+  describe 'labelings' do
+    it 'allows the same label to be associated with a different topic and post' do
       topic.labels << label
       post.labels << label
 
@@ -25,8 +24,8 @@ RSpec.describe Label, type: :model do
       expect(topic_label).to eql(post_label)
     end
 
-    describe ".update_labels" do
-      it "takes a comma delimited string and returns an array of Labels" do
+    describe '.update_labels' do
+      it 'takes a comma delimited string and returns an array of Labels' do
         labels = "#{label.name}, #{label2.name}"
         labels_as_a = [label, label2]
 
@@ -34,6 +33,4 @@ RSpec.describe Label, type: :model do
       end
     end
   end
-
-
 end
