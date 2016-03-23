@@ -2,7 +2,7 @@ class Comment < ActiveRecord::Base
 
   #attr_accessible :content
 
-  belongs_to :commentable, polymorphic: true
+  belongs_to :comments
 
   belongs_to :post
   belongs_to :user
