@@ -93,5 +93,22 @@ RSpec.describe Post, type: :model do
         expect(post.rank).to eq (old_rank - 1)
       end
     end
+=begin
+    describe "#create_vote" do
+      it "triggers create_vote after save post" do
+        expect(post).to receive(create_vote)
+        post.save
+      end
+
+      it "post should have 1 up vote after creation" do
+        post.up_votes = 0
+        post.create_vote
+
+        expect(post.up_votes).to eq(1)
+      end
+
+
+    end
+=end
   end
 end
