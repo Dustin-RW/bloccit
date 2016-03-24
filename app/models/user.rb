@@ -3,13 +3,15 @@ class User < ActiveRecord::Base
   # name, email, password_digest
 
   # A User has many posts
-  has_many :posts
+  has_many :posts, dependent: :destroy
   # A User has many comments
-  has_many :comments
+  has_many :comments, dependent: :destroy
+  # A User has many votes
+  has_many :votes, dependent: :destroy
 
   # before saving of a User, transform the provided email (self) into all downcase letters
   before_save { self.email = email.downcase }
-  
+
   # have to add this to use enum role down below
   # shorthand for { self.role = :member if self.role.nil? }
   # basically stating if self.role is nil (empty), assign it as a member by default

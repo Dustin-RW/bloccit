@@ -9,6 +9,7 @@ RSpec.describe User, type: :model do
 
   # A user has posts that has comments
   it { is_expected.to have_many(:comments) }
+  it { is_expected.to have_many(:votes) }
 
   # Shoulda tests for name presence and name length
   it { is_expected.to validate_presence_of(:name) }

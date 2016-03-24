@@ -1,10 +1,14 @@
-<h1><%= @post.title %><br/>
-  <small>submitted
-    <%= time_ago_in_words(@post.created_at) %>
-    ago by
-    <%= @post.user.name %>
-  </small>
-</h1>
+<div>
+  <!-- Adds local instance variable @post to rendered partial -->
+  <%= render partial: 'votes/voter', locals: { post: @post } %>
+  <h1><%= @post.title %><br/>
+    <small>submitted
+      <%= time_ago_in_words(@post.created_at) %>
+      ago by
+      <%= @post.user.name %>
+    </small>
+  </h1>
+</div>
 <div class="row">
   <div class="col-md-8">
     <%= render partial: 'labels/list', locals: { labels: @post.labels } %>
@@ -38,5 +42,16 @@
       <%= link_to "Edit", edit_topic_post_path(@post.topic, @post), class: 'btn btn-success' %>
     </div>
     <% end %>
+    <div class="col-md-4">
+      <h3>
+        <!-- displays the correctly pluralized forms of "point", up vote and down vote -->
+        <%= pluralize(@post.points, 'point') %>
+        <div>
+          <small>
+            <%= pluralize(@post.up_votes, 'up-vote') %>
+            <%= pluralize(@post.down_votes, 'down_votes') %>
+          </small>
+        </div>
+      </h3>
+    </div>
   </div>
-</div>
