@@ -17,6 +17,7 @@ class SessionsController < ApplicationController
       # method created within SessionHelper and passed to ApplicationHelper
       # so all controllers can access current_user
       create_session(user)
+      #session[:user_id] = user.id
       flash[:notice] = "Welcome, #{user.name}"
       redirect_to root_path
     else

@@ -5,7 +5,7 @@ module SessionsHelper
   end
 
   # we destroy the session of user.id by resetting it to nil
-  def destroy_session(_user)
+  def destroy_session(user)
     session[:user_id] = nil
   end
 
