@@ -1,14 +1,15 @@
 <div class="media">
-  <div class ="media-body">
+  <div class="media-body">
     <small>
-      <%= comment.user.name %> commented <%= time_ago_in_words(comment.created_at) %> ago
+      <%= comment.user.name %>
+      commented
+      <%= time_ago_in_words(comment.created_at) %>
+      ago
       <% if user_is_authorized_for_comment_via_post?(comment) %>
-      | <%= link_to "Delete", [@post, comment], method: :delete %>
-
-      <% else user_is_authorized_for_comment_via_topic?(comment) %>
-      | <%= link_to "Delete", [@topic, comment], method: :delete %>
-      <% end %>
+      |
+      <%= link_to "Delete", [resource, comment], method: :delete %>
     </small>
+    <% end %>
     <p>
       <%= comment.body %>
     </p>
