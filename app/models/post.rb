@@ -11,6 +11,7 @@ class Post < ActiveRecord::Base
   # and also provides methods that allow us to retrieve comments that belong to
   # a post
   has_many :comments, dependent: :destroy
+  has_many :favorites, dependent: :destroy
   # this relates the models and allows us to call post.votes
   has_many :votes, dependent: :destroy
   has_many :labelings, as: :labelable

@@ -8,6 +8,8 @@ class User < ActiveRecord::Base
   has_many :comments, dependent: :destroy
   # A User has many votes
   has_many :votes, dependent: :destroy
+  # A User has many favorites
+  has_many :favorites, dependent: :destroy
 
   # before saving of a User, transform the provided email (self) into all downcase letters
   before_save { self.email = email.downcase }
@@ -40,4 +42,13 @@ class User < ActiveRecord::Base
   # and referencec roles using admin or member
   # see (http://edgeapi.rubyonrails.org/classes/ActiveRecord/Enum.html)
   enum role: [:member, :admin, :moderator]
+
+  # This method takes a post object and uses where to retrieve the user's favorites
+  # with a post_id that matches post.id. If the user has favorited post it will
+  # return an array of one item. If they haven't favorited post it will return
+  # an empty array. Calling first on the array will return either the favorite
+  # or nil depending on whether they favorited the post
+  def favorite_for(post)
+    favorites.where(post_id: post.id).first
+  end
 end
