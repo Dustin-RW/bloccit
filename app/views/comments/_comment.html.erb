@@ -7,7 +7,7 @@
       ago
       <% if user_is_authorized_for_comment_via_post?(comment) %>
       |
-      <%= link_to "Delete", [local_resource, comment], method: :delete %>
+      <%= link_to "Delete", [parent, comment], method: :delete %>
       <% end %>
     </small>
     <p>

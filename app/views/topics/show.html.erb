@@ -12,12 +12,11 @@
       <br/>
       <%= @topic.description %><br/>
       <div class="row">
-        <%= render 'comments/form', comment: Comment.new, local_resource: @topic  %>
+        <%= render 'comments/form', comment: Comment.new, parent: @topic  %>
       </div>
-      </p>
 
       <% @topic.comments.each do |comment| %>
-      <%= render partial: 'comments/comment', locals: { local_resource: @topic, comment: comment } %>
+      <%= render partial: 'comments/comment', locals: { parent: @topic, comment: comment } %>
       <% end %>
     </p>
     <h2>Posts</h2>

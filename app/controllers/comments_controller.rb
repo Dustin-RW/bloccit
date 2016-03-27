@@ -13,10 +13,11 @@ class CommentsController < ApplicationController
     elsif params[:topic_id]
       @parent = Topic.find(id)
     end
+    @comment = @parent.comments.build(comment_params)
+    p "Here is the comment", @comment
     p "Here is the passed id", @parent.attributes
-    p "here is a comment?", @parent.comments
-    @comment = @parent.comments.find_by(params[:id])
-    p "Here is the new comment", @comment.attributes
+    @comment = @parent.comments.find(params[:id])
+    p "Here is the new comment", @comment
 
     @comment.save
 

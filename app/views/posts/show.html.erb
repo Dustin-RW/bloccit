@@ -21,11 +21,11 @@
       <h3>Comments</h3>
       <% if current_user %>
         <% @post.comments.each do |comment| %>
-          <%= render partial: 'comments/comment', locals: { local_resource: @post, comment: comment } %>
+          <%= render partial: 'comments/comment', locals: { parent: @post, comment: comment } %>
         <% end %>
       <% end %>
       <% if current_user %>
-        <%= render 'comments/form', comment: Comment.new, local_resource: @post %>
+        <%= render 'comments/form', comment: Comment.new, parent: @post %>
       <% end %>
     </div>
 
