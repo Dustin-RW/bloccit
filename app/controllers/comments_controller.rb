@@ -14,9 +14,8 @@ class CommentsController < ApplicationController
       @parent = Topic.find(id)
     end
     @comment = @parent.comments.build(comment_params)
-    p "Here is the comment", @comment
     p "Here is the passed id", @parent.attributes
-    @comment = @parent.comments.find(params[:id])
+    @comment.id = @parent.comments.last
     p "Here is the new comment", @comment
 
     @comment.save
