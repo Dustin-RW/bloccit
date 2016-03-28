@@ -18,7 +18,7 @@
 <br/>
 
 <div class="row">
-  <div class="col-md-8">
+  <div class="col-md-4">
     <p>
       <%= @post.body %>
     </p>
@@ -29,6 +29,8 @@
     <% if current_user %>
     <%= render 'comments/form', comment: Comment.new, post: @post %>
     <% end %>
+  </div>
+</div>
 
     <% if user_is_authorized_for_posts?(@post) %>
     <div class="col-md-4">
@@ -53,5 +55,8 @@
           </small>
         </div>
       </h3>
+      <% if current_user %>
+        <%= render partial: 'favorites/favorite', locals: { post: @post } %>
+      <% end %>
     </div>
   </div>

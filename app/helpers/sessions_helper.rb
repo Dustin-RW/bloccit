@@ -1,6 +1,7 @@
 module SessionsHelper
   # create session sets user_id on the session object to user.id
   def create_session(user)
+    # changes the session id within the server
     session[:user_id] = user.id
   end
 

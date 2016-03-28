@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     # only add create and destroy routes for comments.  Comments will be displayed
     # in #posts show view.
     resources :comments, only: [:create, :destroy]
+    resources :favorites, only: [:create, :destroy]
 
     # create POST routes at the URL posts/:id/up-vote
     post '/up-vote' => 'votes#up_vote', as: :up_vote
