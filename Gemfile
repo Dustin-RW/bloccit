@@ -37,5 +37,7 @@ group :development do
  gem 'bootstrap-sass'
  # Used for encrypting User passwords
  gem 'bcrypt'
-
+ # run /rails/db to see datatables
  gem 'rails_db'
+ # store Sendgrid and Devise credentials as environment variables
+ gem 'figaro', '1.0'
