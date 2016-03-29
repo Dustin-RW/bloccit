@@ -2,7 +2,11 @@ require 'rails_helper'
 
 RSpec.describe SessionsController, type: :controller do
   # instance created fore session Controller
-  let(:my_user) { User.create!(name: 'Blochead', email: 'blochead@bloc.io', password: 'password') }
+  #let(:my_user) { User.create!(name: 'Blochead', email: 'blochead@bloc.io', password: 'password') }
+
+
+  # implementing FavoriteGirl
+  let(:my_user) { create(:user) }
 
   #====================================================
 

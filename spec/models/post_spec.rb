@@ -5,10 +5,15 @@ require 'random_data'
 RSpec.describe Post, type: :model do
   # using the let method, we create new instances of the topic, user, and post class
   # we add topic and user because a post is suppose to belong to a topic and a user
-  let(:topic) { Topic.create!(name: RandomData.random_sentence, description: RandomData.random_paragraph) }
-  let(:user)  { User.create!(name: 'Bloccit', email: 'user@bloccit.com', password: 'helloworld') }
+  # let(:topic) { Topic.create!(name: RandomData.random_sentence, description: RandomData.random_paragraph) }
+  # let(:user)  { User.create!(name: 'Bloccit', email: 'user@bloccit.com', password: 'helloworld') }
   #                post should have:   post.title          &               post.body           &          post.user
-  let(:post) { topic.posts.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, user: user) }
+  # let(:post) { topic.posts.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, user: user) }
+
+  # implementing FavoriteGirl
+  let(:topic) { create(:topic) }
+  let(:user) { create(:user) }
+  let(:post) { create(:post) }
 
   # gem 'shoulda'
   # it is expected that posts belong to a topic and a user
@@ -73,22 +78,22 @@ RSpec.describe Post, type: :model do
       end
     end
 
-    describe "#update_rank" do
-      it "calculates the correct rank" do
+    describe '#update_rank' do
+      it 'calculates the correct rank' do
         post.update_rank
         # Determine the age of the post by subtracting a standard time from its
         # created_at time. A standard time in this context is known as an epoch.
         # This makes newer posts start with a higher ranking, which decays over time
-        expect(post.rank).to eq (post.points + (post.created_at - Time.new(1970,1,1)) / 1.day.seconds)
+        expect(post.rank).to eq (post.points + (post.created_at - Time.new(1970, 1, 1)) / 1.day.seconds)
       end
 
-      it "updates the rank when an up vote is created" do
+      it 'updates the rank when an up vote is created' do
         old_rank = post.rank
         post.votes.create!(value: 1)
         expect(post.rank).to eq (old_rank + 1)
       end
 
-      it "updates the rank when a down vote is created" do
+      it 'updates the rank when a down vote is created' do
         old_rank = post.rank
         post.votes.create!(value: -1)
         expect(post.rank).to eq (old_rank - 1)

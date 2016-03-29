@@ -10,26 +10,6 @@ RSpec.describe UsersController, type: :controller do
       password_confirmation: 'blochead'
     }
   end
-  #========================================================
-  # describe "Post confirm" do
-
-  # it "returns http success" do
-  # expect(response).to have_http_status(:success)
-  # end
-
-  # it "renders #confirm" do
-  # get :confirm, user: new_user_attributes
-
-  # expect(response).to render_template :confirm
-  # end
-
-  # it "assigns new_user_attributes to @user" do
-  # get :confirm, user: new_user_attributes
-
-  # expect(assigns(:user)).to eq(new_user_attributes)
-  # end
-  # end
-  #========================================================
   # what happens when the new action of user is called
   describe 'GET new' do
     it 'returns http success' do
@@ -88,6 +68,34 @@ RSpec.describe UsersController, type: :controller do
       post :create, user: new_user_attributes
 
       expect(session[:user_id]).to eq assigns(:user).id
+    end
+  end
+
+  describe "not signed in" do
+
+    # create a variable named factory_user using create(:user)
+    let(:factory_user) { create(:user) }
+
+    before do
+      post :create, user: new_user_attributes
+    end
+
+    it "returns http success" do
+      get :show, { id: factory_user.id }
+
+      expect(response).to have_http_status(:success)
+    end
+
+    it "renders the #show view" do
+      get :show, { id: factory_user.id }
+
+      expect(response).to render_template :show
+    end
+
+    it "assigns factory_user to @user" do
+      get :show, { id: factory_user.id }
+
+      expect(assigns(:user)).to eq(factory_user)
     end
   end
 end
