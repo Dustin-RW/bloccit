@@ -19,6 +19,11 @@ class Post < ActiveRecord::Base
 
   # default_scope {order('created_at DESC')}
   default_scope { order('rank DESC') }
+  
+  # use a lambda (->) to ensure that a user is present or signed in. If the user
+  # is present, we return all posts. If not, we use the Active Record
+  # joins method to retrieve all posts which belong to a public topic
+  scope :visible_to, -> (user) { user ? all : joins(:topic).where('topics.public' => true) }
 
   # validate that the title, has a length of at least 5 characters and that it is present
   validates :title, length: {minimum: 5}, presence: true

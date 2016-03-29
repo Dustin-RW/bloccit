@@ -6,11 +6,17 @@ require 'random_data'
 include SessionsHelper
 
 RSpec.describe PostsController, type: :controller do
-  let(:my_topic) { Topic.create!(name: RandomData.random_sentence, description: RandomData.random_paragraph) }
-  let(:my_user) { User.create!(name: 'Bloccit User', email: 'user@bloccit.com', password: 'helloworld') }
-  let(:post_moderator) { User.create!(name: 'Moderator user', email: 'moderator@bloc.io', password: 'helloworld', role: :moderator) }
-  let(:my_post) { my_topic.posts.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, user: my_user) }
+  #let(:my_topic) { Topic.create!(name: RandomData.random_sentence, description: RandomData.random_paragraph) }
+  #let(:my_user) { User.create!(name: 'Bloccit User', email: 'user@bloccit.com', password: 'helloworld') }
+  #let(:post_moderator) { User.create!(name: 'Moderator user', email: 'moderator@bloc.io', password: 'helloworld', role: :moderator) }
+  #let(:my_post) { my_topic.posts.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, user: my_user) }
 
+  # implementing FavoriteGirl
+  let(:my_topic) { create(:topic) }
+  let(:my_user) { create(:user) }
+  let(:other_user) { create(:user) }
+  let(:post_moderator) { create(:user, role: :moderator)}
+  let(:my_post) { create(:post, topic: my_topic, user: my_user) }
   # let (:my_post) { Post.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph) }
 
   #  describe "GET #index" do
