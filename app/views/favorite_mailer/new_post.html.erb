@@ -1,0 +1,20 @@
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+  </head>
+  <body>
+
+    <h1>You created Post:
+      <%= @post.title %> today at <%= @post.created_at %>
+        </h1>
+
+    <small>by
+      <%= @post.user.name %>
+    </small>
+    <p><%= @post.body %></p>
+    <p>
+      <!-- _url does. It generates an "absolute URL", such as "http://myapp.com/topics/3"  -->
+      <%= link_to "View Your Post on site", topic_post_url(@post.topic, @post) %>
+    </p>
+  </body>
+</html>
