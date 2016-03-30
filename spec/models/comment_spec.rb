@@ -6,15 +6,16 @@ RSpec.describe Comment, type: :model do
   # to a topic and a user
   # let(:topic) { Topic.create!(name: RandomData.random_sentence, description: RandomData.random_paragraph) }
   # let(:user)  { User.create!(name: 'Bloccit', email: 'user@bloccit.com', password: 'helloworld') }
+  # :comment is an instance of rspec Comment.  :comment is created with a body,
+  # the :post instance of Comment spec (see above) and the :user instance of Comment spec (see above)
   # let(:post) { topic.posts.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, user: user) }
+  # let(:comment) { Comment.create!(body: 'Comment Body', post: post, user: user) }
 
   # Implementing FactoryGirl to create spec variables now
   let(:topic) { create(:topic) }
   let(:user) { create(:user) }
   let(:post) { create(:post) }
-  # :comment is an instance of rspec Comment.  :comment is created with a body,
-  # the :post instance of Comment spec (see above) and the :user instance of Comment spec (see above)
-  let(:comment) { Comment.create!(body: 'Comment Body', post: post, user: user) }
+  let(:comment) { create(:comment, post: post, user: user) }
 
   # gem 'shoulda' added to rspec.  "it" is applied to the Comment controller in
   # association of belonging to posts and a user
