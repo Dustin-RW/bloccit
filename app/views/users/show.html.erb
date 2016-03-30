@@ -36,4 +36,12 @@
       <%= render @user.comments %>
   <% end %>
 <% end %>
+
+
+<h2><%= current_user.name %>'s Favorite Post(s):</h2><br />
+<% @user.favorites.each do |favorite| %>
+  <%= render partial: 'votes/voter', locals: { post: favorite.post } %>
+  <p><%= image_tag favorite.post.user.avatar_url(24) %>&nbsp<%= link_to "#{favorite.post.title}" %></p>
+  <small><strong>Number of Comments: </strong><%= favorite.post.comments.count %></small><br /><br />
+<% end %>
 </div>
