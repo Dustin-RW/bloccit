@@ -6,35 +6,30 @@ class CommentsController < ApplicationController
   before_action :authorize_user, only: [:destroy]
 
   def create
-
-    id = params[:post_id] || params[:topic_id]
+    # The comment may be associated to a topic or post.
     if params[:post_id]
-      @parent = Post.find(id)
+      @parent = Post.find(params[:post_id])
     elsif params[:topic_id]
-      @parent = Topic.find(id)
+      @parent = Topic.find(params[:topic_id])
     end
+
     @comment = @parent.comments.build(comment_params)
-    p "Here is the passed id", @parent.attributes
-    @comment.id = @parent.comments.last
-    p "Here is the new comment", @comment
+    # The comment must be associated to the current user.
+    @comment.user = current_user
 
-    @comment.save
-
-
-=begin
-    if @parent == params[:post_id]
-      comment.save
-      flash[:notice] = 'Comment saved successfully'
-      redirect_to [@post.topic, @post]
-    elsif @parent.topic == params[:topic_id]
-      comment.save
-      flash[:notice] = 'Comment saved successfully'
-      redirect_to @topic
+    if @comment.save
+      # Redirection depends on the comment's parent.
+      if @parent.is_a?(Post) == params[:post_id]
+        flash[:notice] = 'Comment saved successfully'
+        redirect_to [@parent.topic, @parent]
+      elsif @parent.is_a?(Topic)
+        flash[:notice] = 'Comment saved successfully'
+        redirect_to @parent
+      end
     else
       flash[:alert] = 'Comment failed to save'
       redirect_to :back
     end
-=end
   end
 
   def destroy
