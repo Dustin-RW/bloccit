@@ -20,8 +20,20 @@
   </div>
 </div>
 
-<h2>Posts</h2>
-<%= render @user.posts %>
-
-<h2>Comments</h2>
-<%= render @user.comments %>
+<div class="row">
+<% if current_user %>
+  <h2>Posts</h2>
+  <% if posts_empty?(current_user) %>
+    <p><%= "#{current_user.name} has not submitted any posts yet." %></p>
+  <% else %>
+      <%= render @user.posts %>
+  <% end %>
+  <br />
+  <h2>Comments</h2>
+  <% if comments_empty?(current_user) %>
+    <p><%= "#{current_user.name} has not submitted any comments yet." %></p>
+  <% else %>
+      <%= render @user.comments %>
+  <% end %>
+<% end %>
+</div>
