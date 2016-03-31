@@ -6,6 +6,7 @@ class CommentsController < ApplicationController
   before_action :authorize_user, only: [:destroy]
 
   def create
+
     # upon clicking on create, determine what param id is passed
     if params[:post_id]
       # if it is a post id, set instance of post id as @parent
@@ -39,34 +40,10 @@ class CommentsController < ApplicationController
         redirect_to @parent
        end
     end
-
-    ###########################################################
-    # id = params[:post_id] || params[:topic_id]
-    # if params[:post_id]
-    # @parent = Post.find(id)
-    # elsif params[:topic_id]
-    # @parent = Topic.find(id)
-    # end
-    # @comment = @parent.comments.build(comment_params)
-    # p "Here is the passed id", @parent.attributes
-    # @comment.id = @parent.comments.last
-    # p "Here is the new comment", @comment
-
-    # @comment.save
-
-    #     if @parent == params[:post_id]
-    #       comment.save
-    #       flash[:notice] = 'Comment saved successfully'
-    #       redirect_to [@post.topic, @post]
-    #     elsif @parent.topic == params[:topic_id]
-    #       comment.save
-    #       flash[:notice] = 'Comment saved successfully'
-    #       redirect_to @topic
-    #     else
-    #       flash[:alert] = 'Comment failed to save'
-    #       redirect_to :back
-    #     end
   end
+
+
+
 
   def destroy
     comment = Comment.find(params[:id])
