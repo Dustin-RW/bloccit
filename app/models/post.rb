@@ -59,7 +59,6 @@ class Post < ActiveRecord::Base
   def create_vote
     # use user.votes.create and set the post association equal
     # to self and the value to equal 1
-    user.votes.create( value: 1 )
-    post = self
+    user.votes.create( value: 1, post: self)
   end
 end
