@@ -6,35 +6,66 @@ class CommentsController < ApplicationController
   before_action :authorize_user, only: [:destroy]
 
   def create
-
-    id = params[:post_id] || params[:topic_id]
+    # upon clicking on create, determine what param id is passed
     if params[:post_id]
-      @parent = Post.find(id)
+      # if it is a post id, set instance of post id as @parent
+      @parent = Post.find(params[:post_id])
     elsif params[:topic_id]
-      @parent = Topic.find(id)
+      # if it is a topic id, set instance of topic id as @parent
+      @parent = Topic.find(params[:topic_id])
     end
+
+    # create instance as @comment.  Build/create
+    # comment belonging to @parent (Topic or Post)
     @comment = @parent.comments.build(comment_params)
-    p "Here is the passed id", @parent.attributes
-    @comment.id = @parent.comments.last
-    p "Here is the new comment", @comment
+    # The comment must be associated to the current user.
+    # A comment must have a user, and value of user within instance of @comment
+    # is currently nil.  Set user id as current user
+    @comment.user = current_user
 
-    @comment.save
-
-
-=begin
-    if @parent == params[:post_id]
-      comment.save
-      flash[:notice] = 'Comment saved successfully'
-      redirect_to [@post.topic, @post]
-    elsif @parent.topic == params[:topic_id]
-      comment.save
-      flash[:notice] = 'Comment saved successfully'
-      redirect_to @topic
-    else
-      flash[:alert] = 'Comment failed to save'
-      redirect_to :back
+    # save comment to database
+    if @comment.save
+      # direction of save through if and elsif
+      # Redirection depends on the comment's parent.
+      # .is_a? method determines if it is of a certain class.  Here, is @parent
+      # of class Post?  Is @parents is the same parent id passed through params?
+      if @parent.is_a?(Post) # template error with this included: (== params[:post_id])
+        flash[:notice] = 'Comment saved successfully'
+        redirect_to [@parent.topic, @parent]
+      # if not part of the class Post, is it a Topic?  If so, save here and
+      # redirect to the topic after save
+      elsif @parent.is_a?(Topic)
+        flash[:notice] = 'Comment saved successfully'
+        redirect_to @parent
+       end
     end
-=end
+
+    ###########################################################
+    # id = params[:post_id] || params[:topic_id]
+    # if params[:post_id]
+    # @parent = Post.find(id)
+    # elsif params[:topic_id]
+    # @parent = Topic.find(id)
+    # end
+    # @comment = @parent.comments.build(comment_params)
+    # p "Here is the passed id", @parent.attributes
+    # @comment.id = @parent.comments.last
+    # p "Here is the new comment", @comment
+
+    # @comment.save
+
+    #     if @parent == params[:post_id]
+    #       comment.save
+    #       flash[:notice] = 'Comment saved successfully'
+    #       redirect_to [@post.topic, @post]
+    #     elsif @parent.topic == params[:topic_id]
+    #       comment.save
+    #       flash[:notice] = 'Comment saved successfully'
+    #       redirect_to @topic
+    #     else
+    #       flash[:alert] = 'Comment failed to save'
+    #       redirect_to :back
+    #     end
   end
 
   def destroy
