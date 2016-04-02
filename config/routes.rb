@@ -41,4 +41,12 @@ Rails.application.routes.draw do
   # The root method allows us to declare the default page the app
   # loads when we navigate to the home page URL.
   root 'welcome#index'
+  # added two new namespaces: api and v1.
+  # v1 is nested under api to create a URI of /api/v1/
+  namespace :api do
+    namespace :v1 do
+      resources :users, only: [:index, :show]
+      resources :topics, only: [:index, :show]
+    end
+  end
 end
