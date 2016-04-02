@@ -1,3 +1,5 @@
+#require 'securerandom'
+
 class User < ActiveRecord::Base
   # User model to represent the users of Bloccit with the following attributes:
   # name, email, password_digest
@@ -18,6 +20,9 @@ class User < ActiveRecord::Base
   # shorthand for { self.role = :member if self.role.nil? }
   # basically stating if self.role is nil (empty), assign it as a member by default
   before_save { self.role ||= :member }
+  # before_create hook to ensure that a token is generated for a user before it
+  # is created and saved to the database
+  before_create :generate_auth_token
 
   # validates that user has a name (hence presence) with a min-max of 1-100 characters
   validates :name, length: { minimum: 1, maximum: 100 }, presence: true
@@ -57,5 +62,12 @@ class User < ActiveRecord::Base
   def avatar_url(size)
     gravatar_id = Digest::MD5::hexdigest(self.email).downcase
     "http://gravatar.com/avatar/#{gravatar_id}.png?s=#{size}"
+  end
+
+  def generate_auth_token
+    loop do
+      self.auth_token = SecureRandom.base64(64)
+      break unless User.find_by(auth_token: auth_token)
+    end
   end
 end
