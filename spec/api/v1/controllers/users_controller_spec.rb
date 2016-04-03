@@ -108,7 +108,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
         # build a new user using factory girl
         @new_user = build(:user)
         # before each spec, we send a request to update my_user using the attributes of @new_user
-        put :update, id: my_user.id, user: { name: @new_user.name, email: @new_user.email, password: @new_user.password, role: "admin" }
+        put :update, id: my_user.id, user: { name: @new_user.name, email: @new_user.email, password: @new_user.password, role: 'admin' }
       end
       # we expect response to have a successful HTTP request
       it 'returns http success' do
@@ -130,18 +130,58 @@ RSpec.describe Api::V1::UsersController, type: :controller do
     end
     # we expect that an update with invalid user attributes will
     # return a 400 Bad Request status code with a JSON error message
-    context "with invalid attributes" do
+    context 'with invalid attributes' do
       before do
-        put :update, id: my_user.id, user: { name: "", email: "bademail@", password: "short" }
+        put :update, id: my_user.id, user: { name: '', email: 'bademail@', password: 'short' }
       end
 
-      it "returns http error" do
+      it 'returns http error' do
         expect(response).to have_http_status(400)
       end
 
-      it "returns the correct json error message" do
-        expect(response.body).to eq({"error" => "User update failed","status" => 400}.to_json)
+      it 'returns the correct json error message' do
+        expect(response.body).to eq({ 'error' => 'User update failed', 'status' => 400 }.to_json)
+      end
+    end
+
+  end
+
+  describe 'POST create' do
+    context 'with valid attributes' do
+      before do
+        @new_user = build(:user)
+        post :create, user: { name: @new_user.name, email: @new_user.email, password: @new_user.password, role: 'admin' }
+      end
+
+      it 'returns http success' do
+        expect(response).to have_http_status(:success)
+      end
+
+      it 'returns json content type' do
+        expect(response.content_type).to eq 'application/json'
+      end
+
+      it 'creates a user with the correct attributes' do
+        hashed_json = JSON.parse(response.body)
+        expect(hashed_json['name']).to eq(@new_user.name)
+        expect(hashed_json['email']).to eq(@new_user.email)
+        expect(hashed_json['role']).to eq('admin')
+      end
+    end
+
+    context 'with invalid attributes' do
+      before do
+        post :create, user: { name: '', email: 'bademail@', password: 'short' }
+      end
+
+      it 'returns http error' do
+        expect(response).to have_http_status(400)
+      end
+
+      it 'returns the correct json error message' do
+        expect(response.body).to eq({ 'error' => 'User is invalid', 'status' => 400 }.to_json)
       end
     end
   end
+
 end
