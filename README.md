@@ -1,6 +1,9 @@
- ## Bloccit: a Reddit replica to teach the fundamentals of web development and Rails.
 
- Made with my mentor at [Bloc](http://bloc.io).
+ <h2>Bloccit:<h2> a Reddit replica to teach the fundamentals of web development and Rails.
+
+
+
+
 
  * **rake db:reset** in console(cmd) to re-seed data before running `rails s`
 
