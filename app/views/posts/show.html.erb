@@ -25,6 +25,7 @@
     <div>
       <h3>Comments</h3>
     <div class='js-comments'>
+      <div class='js-comments-count'><%= pluralize(@post.comments.count, 'comment') %></div>
       <%= render @post.comments %>
     </div>
     </div>

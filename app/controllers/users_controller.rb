@@ -1,3 +1,4 @@
+# crafted by HTML
 class UsersController < ApplicationController
   def confirm
     @user = User.find(params[:id])
