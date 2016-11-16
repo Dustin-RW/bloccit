@@ -1,5 +1,5 @@
 
- <h2>Bloccit:<h2> a Reddit replica to teach the fundamentals of web development and Rails.
+ ## Bloccit: a Reddit replica to teach the fundamentals of web development and Rails.
 
 
 
