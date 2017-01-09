@@ -20,8 +20,28 @@
   </div>
 </div>
 
-<h2>Posts</h2>
-<%= render @user.posts %>
+<div class="row">
+<% if current_user %>
+  <h2>Posts</h2>
+  <% if posts_empty?(current_user) %>
+    <p><%= "#{current_user.name} has not submitted any posts yet." %></p>
+  <% else %>
+      <%= render @user.posts %>
+  <% end %>
+  <br />
+  <h2>Comments</h2>
+  <% if comments_empty?(current_user) %>
+    <p><%= "#{current_user.name} has not submitted any comments yet." %></p>
+  <% else %>
+      <%= render @user.comments %>
+  <% end %>
+<% end %>
 
-<h2>Comments</h2>
-<%= render @user.comments %>
+
+<h2><%= current_user.name %>'s Favorite Post(s):</h2><br />
+<% @user.favorites.each do |favorite| %>
+  <%= render partial: 'votes/voter', locals: { post: favorite.post } %>
+  <p><%= image_tag favorite.post.user.avatar_url(24) %>&nbsp<%= link_to "#{favorite.post.title}", topic_post_path(favorite.post.topic, favorite.post) %></p>
+  <small><strong>Number of Comments: </strong><%= favorite.post.comments.count %></small><br /><br />
+<% end %>
+</div>
