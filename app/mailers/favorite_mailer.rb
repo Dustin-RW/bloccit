@@ -1,13 +1,12 @@
 class FavoriteMailer < ApplicationMailer
   # This sets the default from for all emails sent from FavoriteMailer
-  default from: "dustinwaggoner@comcast.net"
+  default from: 'dustinwaggoner@comcast.net'
 
   def new_comment(user, post, comment)
-
     # we set three different headers to enable conversation threading in different email clients
-    headers["Message-ID"] = "<comments/#{comment.id}@your-app-name.example>"
-    headers["In-Reply-To"] = "<post/#{post.id}@your-app-name.example>"
-    headers["References"] = "<post/#{post.id}@your-app-name.example>"
+    headers['Message-ID'] = "<comments/#{comment.id}@your-app-name.example>"
+    headers['In-Reply-To'] = "<post/#{post.id}@your-app-name.example>"
+    headers['References'] = "<post/#{post.id}@your-app-name.example>"
 
     @user = user
     @post = post
@@ -17,6 +16,17 @@ class FavoriteMailer < ApplicationMailer
     # address, the from (we're using the default), and any cc or bcc information
     # - and prepares the email to be sent
     mail(to: user.email, subject: "New comment on #{post.title}")
+  end
+
+  def new_post(user, post)
+
+    headers['In-Reply-To'] = "<post/#{post.id}@your-app-name.example>"
+    headers['References'] = "<post/#{post.id}@your-app-name.example>"
+
+    @user = user
+    @post = post
+
+    mail(to: user.email, subject: "You have created post: #{post.title}.")
 
   end
 end
