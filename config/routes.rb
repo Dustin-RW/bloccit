@@ -45,8 +45,8 @@ Rails.application.routes.draw do
   # v1 is nested under api to create a URI of /api/v1/
   namespace :api do
     namespace :v1 do
-      resources :users, only: [:index, :show]
-      resources :topics, only: [:index, :show]
+      resources :users, only: [:index, :show, :create, :update]
+      resources :topics, except: [:edit, :new]
     end
   end
 end
