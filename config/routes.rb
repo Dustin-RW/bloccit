@@ -46,7 +46,13 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :users, only: [:index, :show]
-      resources :topics, only: [:index, :show]
+      resources :topics, only: [:index, :show] do # added do here for step 5 & 6, not sure if it could be refactor further or if this is what the assignment wanted
+      # read-only aka GET requests for API
+      # assignment-48 step 1 & 2, creates api/v1/posts/ and api/v1/posts/:id
+      resources :posts, only: [:index, :show]
+      # assignment-48 step 3 & 4, creates api/v1/comments and api/v1/comments/:id
+      resources :comments, only: [:index, :show]
+      end
     end
   end
 end
