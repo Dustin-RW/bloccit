@@ -9,7 +9,8 @@ class Comment < ActiveRecord::Base
   # validates a user is present within a comment
   validates :user, presence: true
 
-  default_scope { order('updated_at DESC') }
+  # default_scope { order('updated_at DESC') }
+  default_scope { order('updated_at ASC') }
 
   private
 
